@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Disease Prediction</title>
+
+    <!-- CSS styling -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://th.bing.com/th/id/OIP.VfHLMwjxpMheXZQF1U587AHaFg?w=1072&h=798&rs=1&pid=ImgDetMain');  /* Replace with your own background image URL */
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            margin-top: 50px;
+            font-size: 36px;
+        }
+
+        .form-container {
+            background-color: rgba(0, 0, 0, 0.5);  /* Dark background for the form */
+            padding: 20px;
+            margin-top: 50px;
+            display: inline-block;
+            border-radius: 8px;
+        }
+
+        label {
+            font-size: 18px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            width: 250px;
+            margin: 5px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .prediction-result {
+            margin-top: 20px;
+            font-size: 24px;
+            color: #ffeb3b;
+        }
+
+        .error-message {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #f44336;
+        }
+    </style>
+</head>
+<body>
+    <h1>Heart Disease Prediction</h1>
+
+    <div class="form-container">
+        <form method="post">
+            {% csrf_token %}
+            <label for="age">Age:</label>
+            <input type="text" id="age" name="age"><br><br>
+
+            <label for="sex">Sex (Male=1/Female=0):</label>
+            <input type="text" id="sex" name="sex"><br><br>
+
+            <label for="chest_pain">Chest Pain Type:</label>
+            <input type="text" id="chest_pain" name="chest_pain"><br><br>
+
+            <label for="blood_pressure">Blood Pressure:</label>
+            <input type="text" id="blood_pressure" name="blood_pressure"><br><br>
+
+            <label for="cholesterol">Cholesterol:</label>
+            <input type="text" id="cholesterol" name="cholesterol"><br><br>
+
+            <label for="fasting_blood_sugar">Fasting Blood Sugar:</label>
+            <input type="text" id="fasting_blood_sugar" name="fasting_blood_sugar"><br><br>
+
+            <label for="resting_ecg">Resting Electrocardiographic Results:</label>
+            <input type="text" id="resting_ecg" name="resting_ecg"><br><br>
+
+            <label for="max_heart_rate">Max Heart Rate:</label>
+            <input type="text" id="max_heart_rate" name="max_heart_rate"><br><br>
+
+            <label for="exercise_angina">Exercise Induced Angina:</label>
+            <input type="text" id="exercise_angina" name="exercise_angina"><br><br>
+
+            <label for="old_peak">Old Peak:</label>
+            <input type="text" id="old_peak" name="old_peak"><br><br>
+
+            <label for="slope">Slope:</label>
+            <input type="text" id="slope" name="slope"><br><br>
+
+            <label for="ca">CA:</label>
+            <input type="text" id="ca" name="ca"><br><br>
+
+            <label for="thal">Thalassemia:</label>
+            <input type="text" id="thal" name="thal"><br><br>
+
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+    {% if prediction %}
+        <div class="prediction-result">
+            <h2>Prediction: {{ prediction }}</h2>
+        </div>
+    {% elif error %}
+        <div class="error-message">
+            <h2>{{ error }}</h2>
+        </div>
+    {% endif %}
+</body>
+</html>
