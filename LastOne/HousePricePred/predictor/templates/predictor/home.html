@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>California Housing Price Predictor</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-image: url('https://cdn.pixabay.com/photo/2020/10/13/13/28/ameland-5651866_1280.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            padding: 40px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #3498db;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        .result {
+            margin-top: 25px;
+            text-align: center;
+            padding: 20px;
+            background-color: #f1f8ff;
+            border-radius: 8px;
+        }
+
+        .result h2 {
+            color: #3498db;
+            font-size: 24px;
+        }
+
+        .error {
+            color: #e74c3c;
+            text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                width: 95%;
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            input, button {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>California Housing Price Predictor</h1>
+        <form method="POST" action="/">
+            {% csrf_token %}
+            <label for="MedInc">Median Income:</label>
+            <input type="number" step="0.01" id="MedInc" name="MedInc" required>
+
+            <label for="HouseAge">House Age:</label>
+            <input type="number" step="0.01" id="HouseAge" name="HouseAge" required>
+
+            <label for="AveRooms">Average Rooms:</label>
+            <input type="number" step="0.01" id="AveRooms" name="AveRooms" required>
+
+            <label for="AveBedrms">Average Bedrooms:</label>
+            <input type="number" step="0.01" id="AveBedrms" name="AveBedrms" required>
+
+            <label for="Population">Population:</label>
+            <input type="number" step="0.01" id="Population" name="Population" required>
+
+            <label for="AveOccup">Average Occupancy:</label>
+            <input type="number" step="0.01" id="AveOccup" name="AveOccup" required>
+
+            <label for="Latitude">Latitude:</label>
+            <input type="number" step="0.01" id="Latitude" name="Latitude" required>
+
+            <label for="Longitude">Longitude:</label>
+            <input type="number" step="0.01" id="Longitude" name="Longitude" required>
+
+            <button type="submit">Predict</button>
+        </form>
+
+        {% if predicted_price %}
+            <div class="result">
+                <h2>Predicted Price: ${{ predicted_price }}</h2>
+            </div>
+        {% elif error %}
+            <div class="error">
+                Error: {{ error }}
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
